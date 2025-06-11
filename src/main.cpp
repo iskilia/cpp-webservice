@@ -40,8 +40,9 @@ public:
         server->set_logger([](const httplib::Request& req, const httplib::Response& res) {
             auto now = system_clock::now();
             auto time_t = system_clock::to_time_t(now);
-            std::cout << std::format("[{}] {} {} - Status: {}\n", 
-                                   std::put_time(std::localtime(&time_t), "%Y-%m-%d %H:%M:%S"),
+            // Use chrono formatting with std::format (C++20)
+            std::cout << std::format("[{:%Y-%m-%d %H:%M:%S}] {} {} - Status: {}\n",
+                                   std::chrono::floor<std::chrono::seconds>(now),
                                    req.method, req.path, res.status);
         });
     }
@@ -115,8 +116,14 @@ private:
         std::string text_color = (theme == "dark") ? "#ffffff" : "#333333";
         std::string accent_color = (theme == "dark") ? "#4a9eff" : "#007bff";
 
-        auto now = system_clock::now();
-        auto time_t = system_clock::to_time_t(now);
+        // Get current time point
+        auto now = std::chrono::system_clock::now();
+
+        // Format the time directly using std::chrono::format
+        // Note: std::chrono::current_zone() for local time zone.
+        // If you specifically need UTC, you can use std::chrono::utc_clock::now()
+        // and format it directly.
+        std::string formatted_time = std::format("{:%Y-%m-%d %H:%M:%S %Z}", now);
         
         std::string html_content = std::format(R"(
             <!DOCTYPE html>
@@ -228,7 +235,7 @@ private:
             </html>
         )", 
         background_color, text_color, accent_color, accent_color, accent_color, accent_color, accent_color, name,
-        std::put_time(std::localtime(&time_t), "%Y-%m-%d %H:%M:%S UTC"),
+        formatted_time,
         (theme == "dark") ? "light" : "dark");
 
         res.set_content(html_content, "text/html");

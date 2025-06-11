@@ -1,18 +1,18 @@
-# ============================================================================
-# Dockerfile - Multi-stage build for AWS deployment
-# ============================================================================
-
 # Build stage
-FROM ubuntu:22.04 AS builder
+FROM ubuntu:24.04 AS builder
 
-# Install build dependencies
+# Install build dependencies with newer GCC
 RUN apt-get update && apt-get install -y \
     build-essential \
     cmake \
     git \
     pkg-config \
     libssl-dev \
-    && rm -rf /var/lib/apt/lists/*
+    gcc-13 \
+    g++-13 \
+    && rm -rf /var/lib/apt/lists/* \
+    && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-13 100 \
+    && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-13 100
 
 # Set working directory
 WORKDIR /app
@@ -21,18 +21,18 @@ WORKDIR /app
 COPY . .
 
 # Build the application
-RUN if [ -d "build" ] ; then echo Build folder already exists ; else mkdir build ; fi
-RUN cd build && \
+RUN mkdir build && cd build && \
     cmake -DCMAKE_BUILD_TYPE=Release .. && \
     make -j$(nproc)
 
 # Runtime stage
-FROM ubuntu:22.04 AS runtime
+FROM ubuntu:24.04 AS runtime
 
 # Install runtime dependencies
 RUN apt-get update && apt-get install -y \
     libssl3 \
     ca-certificates \
+    curl \
     && rm -rf /var/lib/apt/lists/* \
     && useradd -r -s /bin/false appuser
 
