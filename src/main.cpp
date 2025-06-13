@@ -138,17 +138,19 @@ private:
                         background-color: {};
                         color: {};
                         margin: 0;
-                        padding: 40px;
+                        padding: 20px;
                         line-height: 1.6;
+						transition: background-color 0.3s ease, color 0.3s ease;
                     }}
                     .container {{
                         max-width: 800px;
                         margin: 0 auto;
                         text-align: center;
+						padding: 0 10px; /* Add some horizontal padding for very small screens */
                     }}
                     h1 {{
                         color: {};
-                        font-size: 3em;
+                        font-size: 2.5em;
                         margin-bottom: 20px;
                         text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
                     }}
@@ -156,48 +158,92 @@ private:
                         background: rgba(74, 158, 255, 0.1);
                         border: 2px solid {};
                         border-radius: 15px;
-                        padding: 30px;
-                        margin: 30px 0;
+                        padding: 20px;
+                        margin: 20px 0;
                     }}
                     .timestamp {{
-                        font-size: 1.2em;
-                        margin: 20px 0;
+                        font-size: 1em;
+                        margin: 15px 0;
                         opacity: 0.8;
                     }}
                     .features {{
                         display: grid;
                         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                        gap: 20px;
-                        margin: 30px 0;
+                        gap: 15px;
+                        margin: 20px 0;
                     }}
                     .feature {{
                         background: rgba(255,255,255,0.05);
-                        padding: 20px;
+                        padding: 15px;
                         border-radius: 10px;
                         border: 1px solid rgba(255,255,255,0.1);
+						font-size: 0.9em;
                     }}
                     .links {{
-                        margin-top: 40px;
+                        margin-top: 30px;
+            			display: flex;
+            			flex-wrap: wrap;
+            			justify-content: center;
+            			gap: 15px;
                     }}
                     .links a {{
                         color: {};
                         text-decoration: none;
-                        margin: 0 15px;
-                        padding: 10px 20px;
+                        padding: 10px 15px;
                         border: 2px solid {};
                         border-radius: 25px;
                         transition: all 0.3s ease;
+                        white-space: nowrap;
+            			font-size: 0.9em;
                     }}
                     .links a:hover {{
                         background-color: {};
                         color: white;
                     }}
+
+        			@media (max-width: 768px) {{
+            			body {{
+                			padding: 15px;
+            			}}
+            			h1 {{
+                			font-size: 2em;
+            			}}
+            			.info-box h2 {{
+                			font-size: 1.5em;
+            			}}
+            			.feature h3 {{
+                			font-size: 1.1em;
+            			}}
+        			}}
+
+        			@media (max-width: 480px) {{
+            			body {{
+                			padding: 10px;
+            			}}
+            			h1 {{
+                			font-size: 1.8em;
+            			}}
+						.info-box, .features, .links {{
+                			margin: 15px 0;
+            			}}
+            			.info-box h2 {{
+                			font-size: 1.3em;
+            			}}
+            			.feature {{
+                			padding: 10px;
+							font-size: 0.85em;
+            			}}
+						.links a {{
+							padding: 8px 12px;
+							font-size: 0.8em;
+						}}
+        			}}
                 </style>
             </head>
             <body>
                 <div class="container">
                     <h1>🚀 Hello, {}!</h1>
-                    
+
                     <div class="info-box">
                         <h2>Welcome to Modern C++ Web Service</h2>
                         <p>This service is built with C++20 and cpp-httplib, deployed on AWS.</p>
