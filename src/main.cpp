@@ -109,7 +109,7 @@ private:
         std::string name = req.get_param_value("name");
         std::string theme = req.get_param_value("theme");
         
-        if (name.empty()) name = "World";
+        if (name.empty()) name = "Dad";
         if (theme.empty()) theme = "light";
 
         std::string background_color = (theme == "dark") ? "#1a1a1a" : "#f5f5f5";
@@ -242,11 +242,13 @@ private:
             </head>
             <body>
                 <div class="container">
-                    <h1>🚀 Hello, {}!</h1>
+                    <h1>🚀 Hello {}!</h1>
 
                     <div class="info-box">
-                        <h2>Welcome to Modern C++ Web Service</h2>
-                        <p>This service is built with C++20 and cpp-httplib, deployed on AWS.</p>
+                        <h2>Happy Father's Day Dad!</h2>
+                        <p >I just wanted to say thank you for all the guidance you've given me over the years. Even if I sometimes seem stubborn or distracted, please know that I'm always listening (eventually), and I'm forever grateful for your wisdom and support. Also… yes, you’re reading this from a C++ web service deployed on AWS. What can I say? I’ve been brushing up on my C++ skills lately as per your guidance. I know, I know—using C++ for a web service is an overengineered solution. But I thought it would a good learning experience for me. I’m lucky to have you not just as my father, but as someone I look up to career wise as well! I hope this message finds you well, and I really hope we can meet up again in person this year—maybe in December when I am back in Asia</p>
+						<p>With love (and a few dangling pointers), </p>
+                        <p>Isaac</p>
                         <div class="timestamp">
                             Current server time: {}
                         </div>
